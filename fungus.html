@@ -1,0 +1,40 @@
+<head>
+  <title>fungus</title>
+</head>
+
+<body>
+  {{> hello}}
+</body>
+
+<template name="hello">
+  <h1>Hello World!</h1>
+  {{> test_input}}
+  {{> cells}}
+</template>
+
+<template name="game_board">
+<div class=board>
+
+</div>
+</template>
+
+<template name="test_input">
+<div>
+<input id="x" type="text" />
+<input id="y" type="text" />
+<input class="add" type="button" value="Add Cell" />
+</div>
+</template>
+
+<template name="cells">
+  {{#each activeCells}}
+    {{> cell}}
+  {{/each}}
+</template>
+
+<template name="cell">
+<div>
+<span>{{x}}, {{y}}</span>
+<input type="button" value="X" class="delete" /> 
+</div>
+</template>
