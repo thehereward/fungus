@@ -1,4 +1,7 @@
+var GRIDSIZE = 5;
+
 Cells = new Meteor.Collection('cells');
+Rows = new Meteor.Collection('rows');
 
 if (Meteor.isClient) {
 Template.test_input.events = {
@@ -14,7 +17,22 @@ Template.test_input.events = {
 };
 
 Template.cells.activeCells = function () {
-	return Cells.find({});
+	return Cells.find({}, {sort: {x : 1, y: 1}, skip : GRIDSIZE});
+};
+
+Template.cells.rows = function () {
+	var randomArray = [];
+	for (i = 0; i < GRIDSIZE; i++) {
+		randomArray.push(Cells.find({},
+		{sort: {x : 1, y: 1},
+		skip : GRIDSIZE * i,
+		limit : GRIDSIZE}))
+	}
+	return randomArray;
+};
+
+Template.row.rowCells = function () {
+	return this;
 };
 
 Template.cells.events = {
@@ -23,21 +41,16 @@ Template.cells.events = {
   }
 };
 
-  Template.hello.greeting = function () {
-    return "Welcome to fungus.";
-  };
-
-  Template.hello.events({
-    'click input' : function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
-        console.log("You pressed the button");
-    }
-  });
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
+	Cells.remove({});
+	for (i = 0; i <GRIDSIZE; i++){
+	for (j = 0; j <GRIDSIZE; j++){
+	Cells.insert({x: i, y: j});
+	}
+	}
   });
 }

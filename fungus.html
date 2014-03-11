@@ -7,14 +7,14 @@
 </body>
 
 <template name="hello">
-  <h1>Hello World!</h1>
+  <h1>Fungus!</h1>
   {{> test_input}}
   {{> cells}}
 </template>
 
 <template name="game_board">
 <div class=board>
-
+	
 </div>
 </template>
 
@@ -27,14 +27,21 @@
 </template>
 
 <template name="cells">
-  {{#each activeCells}}
-    {{> cell}}
+  {{#each rows}}
+    {{> row}}
   {{/each}}
 </template>
 
-<template name="cell">
+<template name="row">
 <div>
+{{#each rowCells}}
+  {{> cell}}
+{{/each}}
+</div>
+</template>
+
+<template name="cell">
+<div id = "{{x}}_{{y}}" class="cell">
 <span>{{x}}, {{y}}</span>
-<input type="button" value="X" class="delete" /> 
 </div>
 </template>
