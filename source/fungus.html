@@ -8,22 +8,7 @@
 
 <template name="hello">
   <h1>Fungus!</h1>
-  {{> test_input}}
   {{> cells}}
-</template>
-
-<template name="game_board">
-<div class=board>
-	
-</div>
-</template>
-
-<template name="test_input">
-<div>
-<input id="x" type="text" />
-<input id="y" type="text" />
-<input class="add" type="button" value="Add Cell" />
-</div>
 </template>
 
 <template name="cells">
@@ -33,7 +18,7 @@
 </template>
 
 <template name="row">
-<div>
+<div class="row">
 {{#each rowCells}}
   {{> cell}}
 {{/each}}
@@ -41,7 +26,6 @@
 </template>
 
 <template name="cell">
-<div id = "{{x}}_{{y}}" class="cell">
-<span>{{x}}, {{y}}</span>
+<div id = "{{x}}_{{y}}" class="cell {{type}}">
 </div>
 </template>

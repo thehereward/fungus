@@ -4,18 +4,6 @@ Cells = new Meteor.Collection('cells');
 Rows = new Meteor.Collection('rows');
 
 if (Meteor.isClient) {
-Template.test_input.events = {
-    'click input.add': function () {
-	   var x = document.getElementById("x").value;
-	   var y = document.getElementById("y").value;
-	   var colour = 'red';
-	   Cells.insert({x: x, y: y});
-	},	
-	'click input.clearAll': function () {
-		Cells.remove({});
-	}
-};
-
 Template.cells.activeCells = function () {
 	return Cells.find({}, {sort: {x : 1, y: 1}, skip : GRIDSIZE});
 };
@@ -35,12 +23,18 @@ Template.row.rowCells = function () {
 	return this;
 };
 
+Template.cell.events = {
+  'click div.cell' : function () {
+    var newType = (this.type == 'full') ? 'empty' : 'full';      	  
+    Cells.update(this._id, {$set: {type: newType}});
+  }
+};
+
 Template.cells.events = {
     'click input.delete': function () {
     Cells.remove(this._id);
   }
 };
-
 }
 
 if (Meteor.isServer) {
@@ -49,7 +43,7 @@ if (Meteor.isServer) {
 	Cells.remove({});
 	for (i = 0; i <GRIDSIZE; i++){
 	for (j = 0; j <GRIDSIZE; j++){
-	Cells.insert({x: i, y: j});
+	Cells.insert({x: i, y: j, type: 'empty'});
 	}
 	}
   });

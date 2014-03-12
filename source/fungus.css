@@ -1,0 +1,22 @@
+/* CSS declarations go here */
+
+.cell {
+  float: left;
+  width: 40px;
+  height: 40px;
+  border-width: 1px;
+}
+
+.row {
+  clear: both;
+  height: 40px;
+  width: auto;
+}
+
+.empty {
+  background-color: green;
+}
+
+.full {
+  background-color: blue;
+}
